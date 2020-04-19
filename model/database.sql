@@ -1,5 +1,7 @@
 CREATE DATABASE kda;
 
+USE kda;
+
 CREATE TABLE apprenant(
     id int(11) not null auto_increment,
     nom varchar(20) not null,
