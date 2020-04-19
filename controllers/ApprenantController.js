@@ -65,6 +65,35 @@ class ApprennantController{
             });
         }
     }
+    static displayApprenant(){
+        return async(request, response, next)=>{
+            const id = request.params.apprenantId;
+            const sql = "SELECT * FROM apprenant WHERE id = ?";
+            await mysqlConnection.query(sql,[id],(error,row, fiels)=>{
+                if(!error){
+                    response.render('edit_apprenant',{
+                        title: 'Edit Apprenant',
+                        apprenant: row
+                    });
+                }else{
+                    console.log(error);
+                }
+            });
+        }
+    }
+    static editApprenant(){
+        return async(request, response, next)=>{
+            const {idApprenant,nom, prenom, option} = request.body;
+            const sql = "UPDATE apprenant SET nom = ?, prenom = ?, optionApp = ? WHERE id = ?";
+            await mysqlConnection.query(sql,[nom,prenom,option,idApprenant],(error,row, fiels)=>{
+                if(!error){
+                    response.redirect('/');
+                }else{
+                    console.log(error);
+                }
+            });
+        }
+    }
 }
 
 module.exports = ApprennantController;
